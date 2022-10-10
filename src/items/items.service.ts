@@ -21,11 +21,22 @@ export class ItemsService {
     return items;
   }
 
-  findOne(id: number) {
-    return 'Return one' + id;
+  async findOne(params: object) {
+    const item = await this.itemsModule.findOne(params);
+    return item;
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return 'This update';
+  async updateOne(params: object, updateItemDto: UpdateItemDto) {
+    const item = await this.itemsModule.findOneAndUpdate(
+      params,
+      updateItemDto,
+      { new: true },
+    );
+    return item;
+  }
+
+  async deleteOne(params: object) {
+    const item = await this.itemsModule.findOneAndDelete(params, { new: true });
+    return item;
   }
 }
